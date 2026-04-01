@@ -1,0 +1,9 @@
+flask
+requests
+urllib3
+pandas
+numpy
+matplotlib
+scipy
+shapely
+demoparser2

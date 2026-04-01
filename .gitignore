@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+venv/
+.venv/
+*.egg-info/
+
+# Demo files (large binaries)
+server/demos_opponents/
+server/demos/
+demos/
+demos_analysis/
+*.dem
+*.zip
+
+# Output images & summaries (generated)
+server/output/
+
+# Secrets / local config
+server/config.py
+
+# IDE
+.idea/
+
+# Claude Code local files
+.claude/
+
+# Internal tooling
+.superpowers/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
