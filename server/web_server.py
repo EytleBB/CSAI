@@ -23,7 +23,11 @@ try:
 except ImportError:
     print("[CS-Scout] 正在安装依赖，首次运行需要联网，请稍等...")
     req_file = os.path.join(_HERE, "requirements.txt")
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", req_file])
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", req_file])
+    except subprocess.CalledProcessError:
+        print("[CS-Scout] 依赖安装失败，请手动运行: pip install -r requirements.txt")
+        sys.exit(1)
     print("[CS-Scout] 依赖安装完成，请重新运行: python web_server.py")
     sys.exit(0)
 
