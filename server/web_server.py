@@ -10,7 +10,28 @@ Endpoints:
   GET  /                 — web UI
 """
 
+# ── Self-setup (stdlib only, runs before any third-party import) ─────────────
+import sys
 import os
+import subprocess
+
+_HERE = os.path.dirname(os.path.abspath(__file__))
+
+# 1. Auto-install dependencies on first run
+try:
+    import flask  # lightweight probe — if this works, everything is likely installed
+except ImportError:
+    print("[CS-Scout] 正在安装依赖，首次运行需要联网，请稍等...")
+    req_file = os.path.join(_HERE, "requirements.txt")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", req_file])
+    print("[CS-Scout] 依赖安装完成，请重新运行: python web_server.py")
+    sys.exit(0)
+
+# 2. Auto-create required directories
+os.makedirs(os.path.join(_HERE, "output"), exist_ok=True)
+os.makedirs(os.path.join(_HERE, "demos_opponents"), exist_ok=True)
+# ─────────────────────────────────────────────────────────────────────────────
+
 import json
 import threading
 import logging
@@ -336,6 +357,5 @@ def _make_progress_cb():
 
 
 if __name__ == "__main__":
-    os.makedirs(config.OUTPUT_DIR, exist_ok=True)
-    print(f"CSAI Server: http://{config.HOST}:{config.PORT}")
+    print(f"[CS-Scout] 服务已启动: http://0.0.0.0:{config.PORT}")
     app.run(host=config.HOST, port=config.PORT, debug=False)
